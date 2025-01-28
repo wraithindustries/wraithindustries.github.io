@@ -1,194 +1,347 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="utf-8">
-  <title>Wraith</title>
-
-  <!-- mobile responsive meta -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="We build cool things.">
-  <meta name="author" content="Wraith Industries">
-  <meta name="generator" content="Hugo 0.96.0" />
-
-  <!-- plugins -->
-  
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid&#43;Serif:400i%7cSource&#43;Sans&#43;Pro:300,400,600,700 ">
-  
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin&#43;Sans:300,400,600,700 ">
-  
-  <link rel="stylesheet" href="https://wraithindustries.github.io/css/bootstrap.min.css ">
-  
-  <link rel="stylesheet" href="https://wraithindustries.github.io/css/themefisher-fonts.css ">
-  
-  <link rel="stylesheet" href="https://wraithindustries.github.io/css/owl.carousel.css ">
-  
-  <link rel="stylesheet" href="https://wraithindustries.github.io/css/magnific-popup.css ">
-  
-  <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.3/default/snipcart.css ">
-  
-
-  <!-- Main Stylesheet -->
-  
-  <link rel="stylesheet" href="https://wraithindustries.github.io/style.min.css" media="screen">
-
-  <!--Favicon-->
-  <link rel="shortcut icon" href="https://wraithindustries.github.io/images/favicon.png " type="image/x-icon">
-  <link rel="icon" href="https://wraithindustries.github.io/images/favicon.png " type="image/x-icon">
-
-</head><body id="body">
-<!-- preloader start -->
-<div class="preloader">
-  
-</div>
-<!-- preloader end -->
-
-
-
-
-
-<section class="section">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 text-center mb-5 mb-md-0">
-        <img class="img-fluid" src="https://wraithindustries.github.io/images/wraith-logo-black.png" alt="" />
+<!DOCTYPE html><html lang="en" class="scroll-smooth selection:bg-accent-500 selection:text-white no-touchevents hydrated"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Wraith Industries"><!-- Favicon guidelines generated with https://realfavicongenerator.net/ --><link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><meta name="apple-mobile-web-app-title" content="Waith Industries"><link rel="manifest" href="/site.webmanifest"><meta name="msapplication-TileColor" content="#ffffff"><meta name="theme-color" content="#ffffff"><!--Ionicons --><script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script><!--
+https://rsms.me/inter/
+--><link rel="preconnect" href="https://rsms.me/"><link rel="stylesheet" href="https://rsms.me/inter/inter.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet"><!---- Alpine  --><script defer src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"></script><link rel="stylesheet" href="/_astro/glance.CrCl2-Kh.css"></head> <body class="bg-white flex flex-col min-h-svh"> <section class="bg-white border-b border-black/5"> <div class="w-full mx-auto md:px-12 px-8 max-w-7xl lg:px-16"> <div x-data="{ open: false }" class="relative flex flex-col w-full py-5 mx-auto bg-white md:items-center md:justify-between md:flex-row md:px-6"> <div class="flex flex-row items-center justify-between lg:justify-start"> <a href="/" class=" text-black inline-flex items-center gap-3"> <img class="h-10 w-auto>" src="/wraith-logo-text.webp" alt="Wraith Industries"> </a> <button @click="open = !open" class="inline-flex items-center justify-center p-2 text-gray-400 hover:text-black focus:outline-none focus:text-black md:hidden"> <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24"> <path :class="{'hidden': open, 'inline-flex': !open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> <path :class="{'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> </svg> </button> </div> <nav :class="{'flex': open, 'hidden': !open}" class="flex-col items-center flex-grow hidden md:pb-0 md:flex md:justify-end md:flex-row"> <a class="px-2 lg:px-6 py-2 md:px-3 text-sm font-medium text-black hover:text-accent-400 lg:ml-auto" href="/">Home</a> <a class="px-2 lg:px-6 py-2 md:px-3 text-sm font-medium text-black hover:text-accent-400" href="https://getdossier.app/" target="_blank">Dossier</a> <a class="px-2 lg:px-6 py-2 md:px-3 text-sm font-medium text-black hover:text-accent-400" href="/glance">Glance</a> <!-- <div class="inline-flex items-center gap-2 list-none lg:ml-auto">
+          <a
+            href="/signup"
+            class="block px-4 py-2 mt-2 text-sm font-medium text-black md:mt-0 hover:text-accent-400 focus:outline-none focus:shadow-outline">
+            Sign up
+          </a>
+          <a
+            href="/login"
+            class="inline-flex items-center h-8 justify-center px-4 py-2 text-sm font-medium text-black bg-gray-100 rounded-lg group focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 hover:bg-gray-50 active:bg-gray-200 active:text-accent-400 focus-visible:outline-black">
+            Log in
+          </a>
+        </div> --> </nav> </div> </div> </section> <main class="grow"> <section> <div class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24"> <div class="text-center max-w-4xl mx-auto"> <div class="sm:flex sm:justify-center"> <!-- <div
+          class="relative rounded-full py-1 px-3 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+          <a
+            href="https://lexingtonthemes.com/free-templates/"
+            class="font-semibold text-accent-600"
+            ><span class="absolute inset-0" aria-hidden="true"></span>
+            <span class="block lg:inline">
+              More free & Premium templates <span aria-hidden="true"
+                >&rarr;</span
+              >
+            </span>
+          </a>
+        </div> --> </div> <p class="text-4xl tracking-tight font-semibold text-black md:text-5xl font-display mt-8">
+Hi, we're Wraith. We build cool things.
+</p> <p class="text-gray-500 lg:text-xl max-w-2xl mt-4 mx-auto text-base">
+Wraith is a development house building tools to make life a little easier for everyone. Reach out to us to find out more about how we could help bring your ideas to life.
+</p> </div> <div class="flex justify-center gap-3 mt-10 flex-col sm:flex-row"> <!-- <a
+        class="items-center justify-center border-gray-200 h-10 font-medium rounded-lg focus-visible:outline-black focus:outline-none inline-flex duration-200 text-black lg:w-auto px-6 py-3 text-center text-black/80 w-full border"
+        href="https://github.com/michael-andreuzza/astrosaas">GitHub</a
+      > --> <a class="items-center justify-center h-10 font-medium rounded-lg focus-visible:outline-black focus:outline-none inline-flex bg-black border-2 border-black duration-200 focus-visible:ring-black hover:bg-transparent hover:border-black hover:text-black lg:w-auto px-6 py-3 text-center text-white w-full" href="mailto:info@wraithindustries.io">Contact Us &nbsp; &rarr;
+</a> </div> <!-- <dl
+      class="lg:gap-x-8 lg:grid-cols-3 max-w-4xl mt-8 mx-auto sm:gap-x-6 sm:gap-y-12 sm:grid sm:grid-cols-2 sm:space-y-0 space-y-6 text-center text-sm items-start">
+      <div class="text-gray-500">
+        <strong class="text-gray-700"
+          >Astro, Tailwind CSS and Alpine.js</strong
+        > ━ This are the popular technologies behind Astrosaas.
       </div>
-      <div class="col-md-6 align-self-center text-center text-md-left">
-        <div class="block">
-          <h1 class="font-weight-bold mb-4 font-size-40">
-            
-						Hi, we're Wraith. <br />
-						We build cool things.
-          </h1>
-          <p class="mb-4">Wraith is a startup development house building tools to make life a little easier for everyone. Reach out to us to find out more about how we could help bring your ideas to life.</p>
-          
-						<a href="mailto:info@wraithindustries.io">
-							<button class="btn btn-main" >
-								Contact Us
-							</button>
-						</a>
-        </div>
+      <div class="text-gray-500">
+        <strong class="text-gray-700">Includes 6 pages</strong> ━ You will find
+        this landing, faq, terms,privacy,sign up and sign in pages.
       </div>
-    </div>
-    
-  </div>
-  
-</section>
-
-
-<section class="section feature-section" id="feature">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="heading">
-          <h2>What We Do</h2>
-        </div>
+      <div class="text-gray-500">
+        <strong class="text-gray-700">Different section</strong> ━ The starter
+        includes different feature sections, a pricing table, testmionial, CTA
+        and full forms. more.
       </div>
-      <div class="col-md-4">
-        
-        <div class="mb-40 text-center text-md-left">
-          <i class="d-inlin-block h2 mb-10 tf-ion-iphone"></i>
-          <h4 class="font-weight-bold mb-2">Mobile Apps</h4>
-          <p>We build native mobile apps characterised by elegant design and deluxe user experience.</p>
-        </div>
-        
-        <div class="mb-40 text-center text-md-left">
-          <i class="d-inlin-block h2 mb-10 tf-ion-laptop"></i>
-          <h4 class="font-weight-bold mb-2">Web Applications</h4>
-          <p>We have a kene focus on performance and usability when building web apps.</p>
-        </div>
-        
-        <div class="mb-40 text-center text-md-left">
-          <i class="d-inlin-block h2 mb-10 tf-ion-social-buffer-outline"></i>
-          <h4 class="font-weight-bold mb-2">Platforms</h4>
-          <p>We build innovative platforms that connect suppliers and consumers and provide both with a superb experience.</p>
-        </div>
-        
+    </dl> --> <!-- HERO IMAGE --> <div class="relative w-full mx-auto max-w-xl items-center py-12 pb-12"> <!-- <div class="bg-gray-100 p-8 rounded-xl"> --> <!-- <img
+          alt="#_"
+          class="relative w-full border border-gray-200 lg:rounded-2xl object-cover rounded shadow-2xl"
+          src="/wraith-logo-black.png"
+        /> --> <!-- </div> --> </div> <!-- PARTNERS --> <!-- <div class="grid grid-cols-2 gap-0.5 lg:mt-8 md:grid-cols-6 mt-6">
+      <div class="flex justify-center col-span-1 ">
+        <img alt="logo" class="h-8" src="/Figma.svg" />
       </div>
-      <div class="col-md-4 text-center align-self-center mb-4 mb-md-0">
-        <img class="img-fluid" src="https://wraithindustries.github.io/images/iphone-wraith-thin.png" alt="">
+      <div class="flex justify-center col-span-1 ">
+        <img alt="logo" class="h-8" src="/Canva.svg" />
       </div>
-      <div class="col-md-4">
-          
-        <div class="mb-40 text-center text-md-left">
-          <i class="d-inlin-block h2 mb-10 tf-ion-ios-person-outline"></i>
-          <h4 class="font-weight-bold mb-2">Consumer Products</h4>
-          <p>We create consumer facing solutions and tools that make things a little bit easier for everyone.</p>
-        </div>
-        
-        <div class="mb-40 text-center text-md-left">
-          <i class="d-inlin-block h2 mb-10 tf-ion-ios-briefcase-outline"></i>
-          <h4 class="font-weight-bold mb-2">Business Applications</h4>
-          <p>We develop unique solutions to solve complex problems and help drive industry-leading performance for businesses.</p>
-        </div>
-        
-        <div class="mb-40 text-center text-md-left">
-          <i class="d-inlin-block h2 mb-10 tf-ion-ios-lightbulb-outline"></i>
-          <h4 class="font-weight-bold mb-2">Bringing Ideas to Life</h4>
-          <p>Got a great idea? We&rsquo;ll help you make it happen.</p>
-        </div>
-        
+      <div class="flex justify-center col-span-1 ">
+        <img alt="logo" class="h-8" src="/Stripe.svg" />
       </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="section">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 text-center mb-5 mb-lg-0">
-        <img class="img-fluid" src="https://wraithindustries.github.io/images/team.jpg" alt="">
+      <div class="flex justify-center col-span-1 ">
+        <img alt="logo" class="h-8" src="/Gitlab.svg" />
       </div>
-      <div class="col-md-6 align-self-center text-center text-md-left">
-        <div class="content">
-          <h2 class="subheading font-weight-bold mb-10">The Best of the Best</h2>
-          <p>The Wraith team is made up of a like-minded group of people with diverse expereience in business, technoloy and leadership. With exemplary track records and a burning desire to create something special, the team came together to create Wraith Industries.</p>
-        </div>
+      <div class="flex justify-center col-span-1 ">
+        <img alt="logo" class="h-8" src="/Linear.svg" />
       </div>
-    </div>
-  </div>
-</section>
-
-
-
-
-
-<footer>
-  <div class="container text-center">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="block">
-          
-          
-          <p class="copyright-text">
-            Copyright 2022 © Wraith Industries | All rights reserved.
+      <div class="flex justify-center col-span-1 ">
+        <img alt="logo" class="h-8" src="/Gumroad.svg" />
+      </div>
+    </div> --> </div> </section> <section id="features"> <div class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24 scroll-mt-12"> <div class="mx-auto max-w-xl text-center"> <div> <p class="text-4xl tracking-tight font-medium text-black md:text-5xl font-display">
+What we do.
+</p> <!-- <p
+          class="mt-4 text-lg text-na mx-auto tracking-tight text-gray-500"
+        >
+          If you could kick the person in the pants responsible for most of your
+          trouble, you wouldn't sit for a month
+        </p> --> </div> </div> <div> <div class="mx-auto max-w-7xl pt-12"> <h2 class="sr-only">Features.</h2><div> <div class="grid gap-12 grid-cols-1 lg:space-y-0 lg:text-center md:grid-cols-3"> <div> <div> <div class="items-center justify-center text-accent-500 bg-gray-100 rounded-xl flex h-10 w-10 lg:mx-auto"> <ion-icon aria-label="scan outline" class="hydrated md h-4 w-4" name="phone-portrait-outline" role="img"></ion-icon> </div><p class="mt-4 text-lg font-semibold leading-6 text-black font-display tracking-tight">
+Mobile Apps
+</p> </div><div class="mt-4 text-gray-500 text-sm">
+We build native mobile apps characterised by elegant design and deluxe user experience.
+</div> </div><div> <div> <div class="items-center justify-center text-accent-500 bg-gray-100 rounded-xl flex h-10 w-10 lg:mx-auto"> <ion-icon aria-label="scan outline" class="hydrated md h-4 w-4" name="laptop-outline" role="img"></ion-icon> </div><p class="mt-4 text-lg font-semibold leading-6 text-black font-display tracking-tight">
+Web Applications
+</p> </div><div class="mt-4 text-gray-500 text-sm">
+We have a keen focus on performance, usability and experience when building web apps.
+</div> </div><div> <div> <div class="items-center justify-center text-accent-500 bg-gray-100 rounded-xl flex h-10 w-10 lg:mx-auto"> <ion-icon aria-label="scan outline" class="hydrated md h-4 w-4" name="menu-outline" role="img"></ion-icon> </div><p class="mt-4 text-lg font-semibold leading-6 text-black font-display tracking-tight">
+Platforms
+</p> </div><div class="mt-4 text-gray-500 text-sm">
+We build innovative platforms that connect suppliers and consumers and provide both with a superb experience.
+</div> </div><div> <div> <div class="items-center justify-center text-accent-500 bg-gray-100 rounded-xl flex h-10 w-10 lg:mx-auto"> <ion-icon aria-label="scan outline" class="hydrated md h-4 w-4" name="person-outline" role="img"></ion-icon> </div><p class="mt-4 text-lg font-semibold leading-6 text-black font-display tracking-tight">
+Consumer Products
+</p> </div><div class="mt-4 text-gray-500 text-sm">
+We create consumer facing solutions and tools that make things a little bit easier for everyone.
+</div> </div><div> <div> <div class="items-center justify-center text-accent-500 bg-gray-100 rounded-xl flex h-10 w-10 lg:mx-auto"> <ion-icon aria-label="scan outline" class="hydrated md h-4 w-4" name="briefcase-outline" role="img"></ion-icon> </div><p class="mt-4 text-lg font-semibold leading-6 text-black font-display tracking-tight">
+Business Applications
+</p> </div><div class="mt-4 text-gray-500 text-sm">
+We develop unique solutions to solve complex problems and help drive industry-leading performance for businesses.
+</div> </div><div> <div> <div class="items-center justify-center text-accent-500 bg-gray-100 rounded-xl flex h-10 w-10 lg:mx-auto"> <ion-icon aria-label="scan outline" class="hydrated md h-4 w-4" name="bulb-outline" role="img"></ion-icon> </div><p class="mt-4 text-lg font-semibold leading-6 text-black font-display tracking-tight">
+Bringing Ideas to Life
+</p> </div><div class="mt-4 text-gray-500 text-sm">
+Got a great idea? We’ll help you make it happen.
+</div> </div> </div> </div> </div> </div> </div> </section> <section> <div class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24 scroll-mt-12"> <!-- <div class="mx-auto max-w-xl text-center">
+      <div>
+        <p
+          class="text-4xl tracking-tight font-medium text-black md:text-5xl font-display"
+        >
+          Our Work.
+        </p>
+      </div>
+    </div> --> <div class="grid grid-cols-1 gap-4 mt-10 items-center list-none lg:grid-cols-2 lg:gap-24"> <div class="text-center lg:text-left"> <div> <!-- <p
+            class="text-4xl tracking-tight font-medium text-black md:text-5xl font-display">
+            Multilayered security
+          </p> --> <img alt="Dossier logo" class="h-24" src="/dossier-logo.webp"> <p class="text-base mt-4 text-gray-500">
+Access the insights you need to strengthen every connection, so you can nurture your network with ease.
+</p> <p class="mt-6"> <a class="text-accent-500" href="https://getdossier.app">Learn more &rarr;</a> </p></div> </div> <div> <img alt="Dossier screenshots" class="lg:rounded-3xl" src="/dossier-screenshots.webp"> </div> </div> <!-- <div class="mt-24 w-full gap-12 grid grid-cols-1 lg:gap-24 lg:grid-cols-2">
+      <div>
+        <div class="gap-3 lg:inline-flex lg:items-center">
+          <div
+            class="items-center justify-center text-accent-500 bg-gray-100 rounded-xl flex h-10 w-10">
+            <ion-icon
+              aria-label="scan outline"
+              class="hydrated md h-5 w-5"
+              name="scan-outline"
+              role="img"
+            ></ion-icon>
+          </div><p
+            class="mt-4 text-lg font-semibold leading-6 text-black font-display lg:mt-0">
+            Dossiers
           </p>
+        </div><p class="text-gray-500 text-sm mt-4">
+          Effortlessly capture key details about the people who matter most to you.
+        </p>
+      </div><div>
+        <div class="gap-3 lg:inline-flex lg:items-center">
+          <div
+            class="items-center justify-center text-accent-500 bg-gray-100 rounded-xl flex h-10 w-10">
+            <ion-icon
+              aria-label="scan outline"
+              class="hydrated md h-5 w-5"
+              name="scan-outline"
+              role="img"
+            ></ion-icon>
+          </div><p
+            class="mt-4 text-lg font-semibold leading-6 text-black font-display lg:mt-0">
+            Relationships
+          </p>
+        </div><p class="text-gray-500 text-sm mt-4">
+          Map out and visualise connections to better understand your network.
+        </p>
+      </div><div>
+        <div class="gap-3 lg:inline-flex lg:items-center">
+          <div
+            class="items-center justify-center text-accent-500 bg-gray-100 rounded-xl flex h-10 w-10">
+            <ion-icon
+              aria-label="scan outline"
+              class="hydrated md h-5 w-5"
+              name="scan-outline"
+              role="img"
+            ></ion-icon>
+          </div><p
+            class="mt-4 text-lg font-semibold leading-6 text-black font-display lg:mt-0">
+            Easy onboarding
+          </p>
+        </div><p class="text-gray-500 text-sm mt-4">
+          The template is ready for production and can be deployed anywhere
+          static websites can, such as Vercel, Netlify, or GitHub Pages,..
+        </p>
+      </div>
+    </div> --> </div> </section> <section> <div class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24 scroll-mt-12"> <!-- <div class="mx-auto max-w-xl text-center">
+      <div>
+        <p
+          class="text-4xl tracking-tight font-medium text-black md:text-5xl font-display"
+        >
+          Our Work.
+        </p>
+      </div>
+    </div> --> <div class="grid grid-cols-1 gap-4 mt-10 items-center list-none lg:grid-cols-2 lg:gap-24"> <div> <!-- <p
+          class="text-4xl tracking-tight font-medium text-black md:text-5xl font-display">
+          Multilayered security
+        </p> --> <img alt="Glance logo" class="h-24" src="/Glance-logo.webp"> <p class="text-base mt-4 text-gray-500">
+Share your details easily and privately without having to repeat yourself.
+</p> <p class="mt-6"> <a class="text-accent-500" href="/glance">Learn more &rarr;</a> </p> </div> <div> <img alt="Dossier screenshots" class="lg:rounded-3xl" src="/Glance-Screens.webp"> </div> <div class="text-center lg:text-left"></div> </div> <!-- <div class="mt-24 w-full gap-12 grid grid-cols-1 lg:gap-24 lg:grid-cols-2">
+      <div>
+        <div class="gap-3 lg:inline-flex lg:items-center">
+          <div
+            class="items-center justify-center text-accent-500 bg-gray-100 rounded-xl flex h-10 w-10">
+            <ion-icon
+              aria-label="scan outline"
+              class="hydrated md h-5 w-5"
+              name="scan-outline"
+              role="img"
+            ></ion-icon>
+          </div><p
+            class="mt-4 text-lg font-semibold leading-6 text-black font-display lg:mt-0">
+            Dossiers
+          </p>
+        </div><p class="text-gray-500 text-sm mt-4">
+          Effortlessly capture key details about the people who matter most to you.
+        </p>
+      </div><div>
+        <div class="gap-3 lg:inline-flex lg:items-center">
+          <div
+            class="items-center justify-center text-accent-500 bg-gray-100 rounded-xl flex h-10 w-10">
+            <ion-icon
+              aria-label="scan outline"
+              class="hydrated md h-5 w-5"
+              name="scan-outline"
+              role="img"
+            ></ion-icon>
+          </div><p
+            class="mt-4 text-lg font-semibold leading-6 text-black font-display lg:mt-0">
+            Relationships
+          </p>
+        </div><p class="text-gray-500 text-sm mt-4">
+          Map out and visualise connections to better understand your network.
+        </p>
+      </div><div>
+        <div class="gap-3 lg:inline-flex lg:items-center">
+          <div
+            class="items-center justify-center text-accent-500 bg-gray-100 rounded-xl flex h-10 w-10">
+            <ion-icon
+              aria-label="scan outline"
+              class="hydrated md h-5 w-5"
+              name="scan-outline"
+              role="img"
+            ></ion-icon>
+          </div><p
+            class="mt-4 text-lg font-semibold leading-6 text-black font-display lg:mt-0">
+            Easy onboarding
+          </p>
+        </div><p class="text-gray-500 text-sm mt-4">
+          The template is ready for production and can be deployed anywhere
+          static websites can, such as Vercel, Netlify, or GitHub Pages,..
+        </p>
+      </div>
+    </div> --> </div> </section>    </main> <!-- <footer>
+  <div
+    class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24">
+    <div class="grid grid-cols-2 lg:grid-cols-4 items-start gap-x-8 gap-y-24">
+      <a
+        href="/"
+        class="xl:col-span-1 text-black inline-flex items-center gap-3">
+        <svg
+          class="h-4"
+          viewBox="0 0 78 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M55.5 0H77.5L58.5 32H36.5L55.5 0Z"
+            class="ccustom"
+            fill="#283CFF"
+          ></path>
+          <path
+            d="M35.5 0H51.5L32.5 32H16.5L35.5 0Z"
+            class="ccompli1"
+            fill="#5263FF"
+          ></path>
+          <path
+            d="M19.5 0H31.5L12.5 32H0.5L19.5 0Z"
+            class="ccompli2"
+            fill="#808CFF"
+          ></path>
+        </svg>
+        <span class="font-bold font-display">AstroSaas</span>
+      </a>
+      <div
+        class="md:grid md:grid-cols-2 xl:grid-cols-2 md:gap-8 text-sm text-gray-400 lg:col-span-2">
+        <div>
+          <h3 class="text-lg text-black font-medium tracking-tight">
+            All pages
+          </h3>
+          <ul
+            role="list"
+            class="mt-4 space-y-2">
+            <li>
+              <a
+                href="/"
+                class="hover:text-black">
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                href="/faq"
+                class="hover:text-black">
+                FAQ
+              </a>
+            </li>
+            <li>
+              <a
+                href="/terms"
+                class="hover:text-black">
+                Terms
+              </a>
+            </li>
+            <li>
+              <a
+                href="/privacy"
+                class="hover:text-black">
+                Privacy
+              </a>
+            </li>
+            <li>
+              <a
+                href="/signup"
+                class="hover:text-black">
+                Sign up
+              </a>
+            </li>
+            <li>
+              <a
+                href="/signup"
+                class="hover:text-black">
+                Sign In
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="mt-12 md:mt-0">
+          <h3 class="text-lg text-black font-medium tracking-tight">Socials</h3>
+          <ul
+            role="list"
+            class="mt-4 space-y-2">
+            <li>
+              <a
+                href="https://x.com/lexingtonthemes"
+                class="hover:text-black">
+                @lexingtonthemes
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://x.com/Mike_Andreuzza"
+                class="hover:text-black">
+                @Mike_Andreuzza
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
-</footer>
-
-
-<div hidden id="snipcart" data-api-key="ZDgxY2ZiM2EtMWRmMi00M2ZkLWI1MDAtNzA2MDc0Y2Q1MzJlNjM3MTAzNDIwOTQ1NDA4NjM4"></div>
-
-
-
-<script src="https://wraithindustries.github.io/js/jquery-2.1.1.min.js"></script>
-
-<script src="https://wraithindustries.github.io/js/bootstrap.min.js"></script>
-
-<script src="https://wraithindustries.github.io/js/owl.carousel.min.js"></script>
-
-<script src="https://wraithindustries.github.io/js/jquery.magnific-popup.min.js"></script>
-
-<script src="https://cdn.snipcart.com/themes/v3.0.3/default/snipcart.js"></script>
-
-
-
-
-<script src="https://wraithindustries.github.io/script.js"></script>
-
-
-
-</body>
-</html>
+</footer> --><footer class="bg-white"> <div class="border-t pt-6 border-gray-200"></div> <div class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-6 flex justify-between"> <p class="text-sm text-neutral-600 lg:col-span-2">
+© 2025 Wraith Industries.
+</p> <p class="text-sm text-neutral-600 lg:col-span-2"> <a href="/privacy" class="hover:text-black">Privacy Policy</a> </p> </div> </footer> </body></html>
