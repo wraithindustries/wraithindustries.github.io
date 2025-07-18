@@ -1,0 +1,31 @@
+{
+  "name": "wraith-industries-website",
+  "version": "1.0.0",
+  "description": "Official website for Wraith Industries - Building innovative apps for Apple platforms",
+  "author": "Wraith Industries",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@astrojs/sitemap": "^3.4.1",
+    "@tailwindcss/forms": "^0.5.9",
+    "@tailwindcss/typography": "^0.5.15",
+    "@tailwindcss/vite": "^4.0.0-alpha.23",
+    "@types/node": "^24.0.14",
+    "astro": "^5.12.0",
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "tailwindcss": "^4.0.0-alpha.23"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.1",
+    "@mdx-js/mdx": "^3.1.0"
+  }
+}

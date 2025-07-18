@@ -1,0 +1,44 @@
+---
+import { Image } from "astro:assets";
+import dossierLogo from "../../assets/images/dossier-logo.webp";
+import dossierScreenshots from "../../assets/images/dossier-screenshots.webp";
+---
+
+<section>
+    <div class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24 scroll-mt-12">
+        <div class="grid grid-cols-1 gap-4 mt-10 items-center list-none lg:grid-cols-2 lg:gap-24">
+            <div class="text-center lg:text-left">
+                <div>
+                    <Image
+                        src={dossierLogo}
+                        alt="Dossier - Personal knowledge management system"
+                        class="h-24"
+                        height={96}
+                        width={300}
+                        loading="lazy"
+                    />
+                    <p class="text-base mt-4 text-gray-500">
+                        Access the insights you need to strengthen every connection, so you can
+                        nurture your network with ease.
+                    </p>
+                    <p class="mt-6">
+                        <a class="text-accent-500" href="https://getdossier.app"
+                            >Learn more &rarr;</a
+                        >
+                    </p>
+                </div>
+            </div>
+            <div>
+                <Image
+                    src={dossierScreenshots}
+                    alt="Dossier app screenshots showing network management features"
+                    class="lg:rounded-3xl"
+                    width={600}
+                    densities={[1.5, 2]}
+                    loading="lazy"
+                    quality={80}
+                />
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,100 @@
+---
+import ReleaseHeader from "./ReleaseHeader.astro";
+
+export interface Props {
+    content: string;
+}
+
+const { content } = Astro.props;
+
+// Function to process content and replace headers with pill versions
+function processContent(content: string): string {
+    // Replace ## headers with pill components
+    const headerMap = {
+        "## Added": '<ReleaseHeader type="added" />',
+        "## Changed": '<ReleaseHeader type="changed" />',
+        "## Deprecated": '<ReleaseHeader type="deprecated" />',
+        "## Removed": '<ReleaseHeader type="removed" />',
+        "## Fixed": '<ReleaseHeader type="fixed" />',
+        "## Security": '<ReleaseHeader type="security" />',
+    };
+
+    let processedContent = content;
+    Object.entries(headerMap).forEach(([header, replacement]) => {
+        processedContent = processedContent.replace(new RegExp(header, "g"), replacement);
+    });
+
+    return processedContent;
+}
+
+const processedContent = processContent(content);
+---
+
+<div class="release-note-content">
+    <div class="prose prose-lg max-w-none">
+        <Fragment set:html={processedContent} />
+    </div>
+</div>
+
+<style>
+    .release-note-content {
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 0.5rem;
+        box-shadow:
+            0 1px 3px 0 rgba(0, 0, 0, 0.1),
+            0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+
+    .release-note-content :global(h1) {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: #1a202c;
+    }
+
+    .release-note-content :global(h2) {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        color: #2d3748;
+    }
+
+    .release-note-content :global(ul) {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .release-note-content :global(li) {
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+        color: #4a5568;
+    }
+
+    .release-note-content :global(p) {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+        color: #4a5568;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .release-note-content {
+            background-color: #1a202c;
+        }
+
+        .release-note-content :global(h1) {
+            color: #f7fafc;
+        }
+
+        .release-note-content :global(h2) {
+            color: #e2e8f0;
+        }
+
+        .release-note-content :global(li),
+        .release-note-content :global(p) {
+            color: #cbd5e0;
+        }
+    }
+</style>

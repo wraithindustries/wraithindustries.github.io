@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import glanceScreens from "../../assets/images/Glance-Screens.webp";
+---
+
+<BaseLayout>
+    <div class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24">
+        <div class="text-center max-w-4xl mx-auto">
+            <div class="sm:flex sm:justify-center"></div>
+            <p
+                class="text-4xl tracking-tight font-semibold text-black md:text-5xl font-display mt-8"
+            >
+                Glance
+            </p>
+            <p class="text-gray-500 lg:text-xl max-w-2xl mt-8 mx-auto text-base">
+                Say goodbye to awkward introductions and repeating yourself. Glance transforms how
+                you share personal details, making every exchange seamless and stress-free. With
+                just a tap, you control what others see—quick, simple, and secure. Glance ensures
+                they get only what they need, and nothing more.
+            </p>
+            <div class="mt-8 flex justify-center">
+                <a
+                    href="/apps/glance/release-notes"
+                    class="inline-flex items-center px-6 py-3 text-base font-medium text-white bg-black rounded-lg hover:bg-gray-800 transition-colors"
+                >
+                    View Release Notes
+                    <svg
+                        class="w-4 h-4 ml-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="mt-8">
+            <Image
+                src={glanceScreens}
+                alt="Glance app screens showing seamless personal information sharing interface"
+                class="mx-auto rounded-md w-full"
+                loading="eager"
+                width={1200}
+                densities={[1.5, 2]}
+                quality={80}
+            />
+        </div>
+    </div>
+</BaseLayout>

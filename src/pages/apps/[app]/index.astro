@@ -1,0 +1,209 @@
+---
+import Layout from "../../../layouts/BaseLayout.astro";
+
+import fs from "fs";
+import path from "path";
+
+// Type definitions
+interface Release {
+    version: string;
+    date: string | null;
+}
+
+export async function getStaticPaths() {
+    const appsDir = path.join(process.cwd(), "src/apps");
+    const paths = [];
+
+    if (fs.existsSync(appsDir)) {
+        const appDirs = fs.readdirSync(appsDir).filter((dir) => {
+            const appPath = path.join(appsDir, dir);
+            return fs.statSync(appPath).isDirectory();
+        });
+
+        appDirs.forEach((app) => {
+            paths.push({ params: { app } });
+        });
+    }
+
+    return paths;
+}
+
+const { app } = Astro.params;
+const appTitle = app.charAt(0).toUpperCase() + app.slice(1);
+
+// Get release notes for this app
+const releaseNotesDir = path.join(process.cwd(), "src/apps", app, "release-notes");
+let releases: Release[] = [];
+
+if (fs.existsSync(releaseNotesDir)) {
+    const files = fs
+        .readdirSync(releaseNotesDir)
+        .filter((file) => file.endsWith(".mdx"))
+        .map((file) => {
+            const version = file.replace(".mdx", "");
+            const mdxPath = path.join(releaseNotesDir, file);
+            const rawContent = fs.readFileSync(mdxPath, "utf-8");
+            let date = null;
+
+            // Extract date from frontmatter
+            const frontmatterMatch = rawContent.match(/^---\n([\s\S]*?)\n---/);
+            if (frontmatterMatch) {
+                const frontmatterString = frontmatterMatch[1];
+                const dateMatch = frontmatterString.match(/date:\s*["']?(.+?)["']?\s*$/m);
+                if (dateMatch) {
+                    date = dateMatch[1];
+                }
+            }
+
+            return { version, date, href: `/apps/${app}/release-notes/${version}` };
+        })
+        .sort((a, b) => {
+            // Sort by version (newest first)
+            return b.version.localeCompare(a.version);
+        });
+
+    releases = files.slice(0, 5); // Show only the latest 5 releases
+}
+
+// App descriptions (you can expand this or move to a config file)
+const appDescriptions = {
+    glance: "A powerful monitoring and analytics tool for your infrastructure.",
+};
+
+const appDescription = appDescriptions[app] || `Welcome to ${appTitle}`;
+---
+
+<Layout
+    title={`${appTitle} - Apps`}
+    breadcrumbs={[{ label: "Apps", href: "/apps" }, { label: appTitle }]}
+>
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold mb-4">{appTitle}</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400">{appDescription}</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-3">Documentation</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    Learn how to use {appTitle} effectively.
+                </p>
+                <a
+                    href={`/docs/${app}`}
+                    class="text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 font-medium inline-flex items-center"
+                >
+                    View Documentation
+                    <svg
+                        class="w-4 h-4 ml-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-3">Release Notes</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    Stay updated with the latest changes and improvements.
+                </p>
+                <a
+                    href={`/apps/${app}/release-notes`}
+                    class="text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 font-medium inline-flex items-center"
+                >
+                    View All Releases
+                    <svg
+                        class="w-4 h-4 ml-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Latest Releases -->
+        {
+            releases.length > 0 && (
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                    <h2 class="text-2xl font-semibold mb-4">Latest Releases</h2>
+                    <div class="space-y-4">
+                        {releases.map((release) => (
+                            <div class="border-b border-gray-200 dark:border-gray-700 last:border-0 pb-4 last:pb-0">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <a
+                                            href={release.href}
+                                            class="text-lg font-medium text-gray-900 dark:text-gray-100 hover:text-blue-500 dark:hover:text-blue-400"
+                                        >
+                                            {release.version}
+                                        </a>
+                                        {release.date && (
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                                {new Date(release.date).toLocaleDateString(
+                                                    "en-US",
+                                                    {
+                                                        year: "numeric",
+                                                        month: "long",
+                                                        day: "numeric",
+                                                    },
+                                                )}
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <a
+                            href={`/apps/${app}/release-notes`}
+                            class="text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 font-medium inline-flex items-center"
+                        >
+                            View All Release Notes
+                            <svg
+                                class="w-4 h-4 ml-1"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M9 5l7 7-7 7"
+                                />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            )
+        }
+
+        <!-- App Features or Additional Info -->
+        <div class="mt-8 bg-gray-50 dark:bg-gray-900 rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-3">Getting Started</h2>
+            <p class="text-gray-600 dark:text-gray-400">
+                New to {appTitle}? Check out our documentation to get started quickly and learn
+                about all the features available.
+            </p>
+        </div>
+    </main>
+</Layout>

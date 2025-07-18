@@ -1,0 +1,258 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+import ReleaseHeader from "../components/ReleaseNotes/ReleaseHeader.astro";
+import fs from "fs";
+import path from "path";
+
+// Type definitions
+interface ReleaseFile {
+    version: string;
+    versionNumber: string;
+    date?: string;
+    title?: string;
+    filename: string;
+}
+
+interface AppWithReleaseNotes {
+    app: string;
+    appTitle: string;
+    releases: ReleaseFile[];
+    latestRelease: ReleaseFile;
+}
+
+// Get all apps with release notes
+const appsDir = path.join(process.cwd(), "src/apps");
+const appsWithReleaseNotes: AppWithReleaseNotes[] = [];
+
+if (fs.existsSync(appsDir)) {
+    const appDirs = fs.readdirSync(appsDir).filter((dir) => {
+        const releaseNotesDir = path.join(appsDir, dir, "release-notes");
+        return fs.existsSync(releaseNotesDir) && fs.statSync(releaseNotesDir).isDirectory();
+    });
+
+    appDirs.forEach((app) => {
+        const releaseNotesDir = path.join(appsDir, app, "release-notes");
+        const files = fs
+            .readdirSync(releaseNotesDir)
+            .filter((file) => file.endsWith(".mdx"))
+            .map((file) => {
+                const content = fs.readFileSync(path.join(releaseNotesDir, file), "utf-8");
+                const versionMatch = file.match(/v(\d+\.\d+\.\d+)/);
+                const dateMatch = content.match(/date:\s*"([^"]+)"/);
+                const titleMatch = content.match(/title:\s*"([^"]+)"/);
+
+                return {
+                    version: versionMatch ? versionMatch[0] : file.replace(".mdx", ""),
+                    versionNumber: versionMatch ? versionMatch[1] : "0.0.0",
+                    date: dateMatch ? dateMatch[1] : "",
+                    title: titleMatch
+                        ? titleMatch[1]
+                        : `${app} ${versionMatch ? versionMatch[0] : ""}`,
+                    filename: file.replace(".mdx", ""),
+                };
+            })
+            .sort((a, b) => {
+                // Sort by version number in descending order
+                const aParts = a.versionNumber.split(".").map(Number);
+                const bParts = b.versionNumber.split(".").map(Number);
+
+                for (let i = 0; i < 3; i++) {
+                    if (aParts[i] !== bParts[i]) {
+                        return bParts[i] - aParts[i];
+                    }
+                }
+                return 0;
+            });
+
+        if (files.length > 0) {
+            appsWithReleaseNotes.push({
+                app,
+                appTitle: app.charAt(0).toUpperCase() + app.slice(1),
+                releases: files,
+                latestRelease: files[0],
+            });
+        }
+    });
+}
+
+// Sort apps alphabetically
+appsWithReleaseNotes.sort((a, b) => a.appTitle.localeCompare(b.appTitle));
+---
+
+<Layout
+    title="All Release Notes"
+    breadcrumbs={[{ label: "Home", href: "/" }, { label: "Release Notes" }]}
+>
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold mb-4">All Release Notes</h1>
+            <p class="text-gray-600 dark:text-gray-400">
+                Browse release notes for all applications. All changelogs follow the
+                <a
+                    href="https://keepachangelog.com/en/1.1.0/"
+                    class="text-blue-500 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Keep a Changelog
+                </a> format.
+            </p>
+        </div>
+
+        {
+            appsWithReleaseNotes.length > 0 ? (
+                <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    {appsWithReleaseNotes.map(({ app, appTitle, releases, latestRelease }) => (
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                            <div class="p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">
+                                        {appTitle}
+                                    </h2>
+                                </div>
+
+                                <div class="mb-4">
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                        Latest:{" "}
+                                        {latestRelease.date
+                                            ? new Date(latestRelease.date).toLocaleDateString(
+                                                  "en-US",
+                                                  {
+                                                      year: "numeric",
+                                                      month: "short",
+                                                      day: "numeric",
+                                                  },
+                                              )
+                                            : "Unknown date"}
+                                    </p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                        {releases.length} release{releases.length !== 1 ? "s" : ""}{" "}
+                                        available
+                                    </p>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Recent Versions:
+                                    </h3>
+                                    <div class="space-y-1">
+                                        {releases.slice(0, 3).map((release, index) => (
+                                            <a
+                                                href={`/apps/${app}/release-notes/${release.filename}`}
+                                                class={`block text-sm text-blue-500 hover:text-blue-600 hover:underline ${index === 0 ? "font-bold" : ""}`}
+                                            >
+                                                {release.version}
+                                                {release.date && (
+                                                    <span class="text-gray-500 dark:text-gray-400 ml-2">
+                                                        (
+                                                        {new Date(release.date).toLocaleDateString(
+                                                            "en-US",
+                                                            { month: "short", year: "numeric" },
+                                                        )}
+                                                        )
+                                                    </span>
+                                                )}
+                                            </a>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <a
+                                        href={`/apps/${app}/release-notes`}
+                                        class="inline-flex items-center text-blue-500 hover:text-blue-600 font-medium"
+                                    >
+                                        View all {appTitle} releases
+                                        <svg
+                                            class="w-4 h-4 ml-1"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M9 5l7 7-7 7"
+                                            />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-8 text-center">
+                    <svg
+                        class="w-16 h-16 mx-auto mb-4 text-yellow-600 dark:text-yellow-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                    </svg>
+                    <h3 class="text-lg font-medium text-yellow-800 dark:text-yellow-200 mb-2">
+                        No Release Notes Available
+                    </h3>
+                    <p class="text-yellow-700 dark:text-yellow-300">
+                        No applications have release notes yet. Check back later!
+                    </p>
+                </div>
+            )
+        }
+
+        <div class="mt-12 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+            <h2 class="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
+                About Our Release Notes
+            </h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                We follow the <a
+                    href="https://keepachangelog.com/en/1.1.0/"
+                    class="text-blue-500 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer">Keep a Changelog</a
+                > format for all our release notes. Each release is categorized into:
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div class="flex items-center space-x-2">
+                    <ReleaseHeader type="added" />
+                    <span class="text-sm text-gray-600 dark:text-gray-400">New features</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <ReleaseHeader type="changed" />
+                    <span class="text-sm text-gray-600 dark:text-gray-400"
+                        >Changes in existing functionality</span
+                    >
+                </div>
+                <div class="flex items-center space-x-2">
+                    <ReleaseHeader type="deprecated" />
+                    <span class="text-sm text-gray-600 dark:text-gray-400"
+                        >Soon-to-be removed features</span
+                    >
+                </div>
+                <div class="flex items-center space-x-2">
+                    <ReleaseHeader type="removed" />
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Removed features</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <ReleaseHeader type="fixed" />
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Bug fixes</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <ReleaseHeader type="security" />
+                    <span class="text-sm text-gray-600 dark:text-gray-400"
+                        >Security vulnerabilities</span
+                    >
+                </div>
+            </div>
+        </div>
+    </main>
+</Layout>

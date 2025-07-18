@@ -1,0 +1,39 @@
+---
+import { Image } from "astro:assets";
+import glanceLogo from "../../assets/images/Glance-logo.webp";
+import glanceScreens from "../../assets/images/Glance-Screens.webp";
+---
+
+<section>
+    <div class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24 scroll-mt-12">
+        <div class="grid grid-cols-1 gap-4 mt-10 items-center list-none lg:grid-cols-2 lg:gap-24">
+            <div>
+                <Image
+                    src={glanceLogo}
+                    alt="Glance - Share your details easily and privately"
+                    class="h-24"
+                    height={96}
+                    width={300}
+                    loading="lazy"
+                />
+                <p class="text-base mt-4 text-gray-500">
+                    Share your details easily and privately without having to repeat yourself.
+                </p>
+                <p class="mt-6">
+                    <a class="text-accent-500" href="/apps/glance">Learn more &rarr;</a>
+                </p>
+            </div>
+            <div>
+                <Image
+                    src={glanceScreens}
+                    alt="Glance app interface showcasing seamless personal information sharing"
+                    class="lg:rounded-3xl"
+                    width={600}
+                    densities={[1.5, 2]}
+                    loading="lazy"
+                    quality={80}
+                />
+            </div>
+        </div>
+    </div>
+</section>

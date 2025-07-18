@@ -1,0 +1,134 @@
+---
+import Layout from "../../../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import fs from "fs";
+import path from "path";
+
+// Type definitions
+interface ReleaseNote {
+    version: string;
+    versionNumber: string;
+    date: string;
+    title: string;
+    filename: string;
+}
+
+export async function getStaticPaths() {
+    // Get all apps that have release notes
+    const appsDir = path.join(process.cwd(), "src/apps");
+    const apps = [];
+
+    if (fs.existsSync(appsDir)) {
+        const appDirs = fs.readdirSync(appsDir).filter((dir) => {
+            const releaseNotesDir = path.join(appsDir, dir, "release-notes");
+            return fs.existsSync(releaseNotesDir) && fs.statSync(releaseNotesDir).isDirectory();
+        });
+
+        appDirs.forEach((app) => apps.push({ params: { app } }));
+    }
+
+    return apps;
+}
+
+const { app } = Astro.params;
+
+// Get all release notes for this app
+const releaseNotesDir = path.join(process.cwd(), "src/apps", app, "release-notes");
+let releaseNotes: ReleaseNote[] = [];
+
+if (fs.existsSync(releaseNotesDir)) {
+    const files = fs
+        .readdirSync(releaseNotesDir)
+        .filter((file) => file.endsWith(".mdx"))
+        .map((file) => {
+            const content = fs.readFileSync(path.join(releaseNotesDir, file), "utf-8");
+            const versionMatch = file.match(/v(\d+\.\d+\.\d+)/);
+            const dateMatch = content.match(/date:\s*"([^"]+)"/);
+            const titleMatch = content.match(/title:\s*"([^"]+)"/);
+
+            return {
+                version: versionMatch ? versionMatch[0] : file.replace(".mdx", ""),
+                versionNumber: versionMatch ? versionMatch[1] : "0.0.0",
+                date: dateMatch ? dateMatch[1] : "",
+                title: titleMatch ? titleMatch[1] : `${app} ${versionMatch ? versionMatch[0] : ""}`,
+                filename: file.replace(".mdx", ""),
+            };
+        })
+        .sort((a, b) => {
+            // Sort by version number in descending order
+            const aParts = a.versionNumber.split(".").map(Number);
+            const bParts = b.versionNumber.split(".").map(Number);
+
+            for (let i = 0; i < 3; i++) {
+                if (aParts[i] !== bParts[i]) {
+                    return bParts[i] - aParts[i];
+                }
+            }
+            return 0;
+        });
+
+    releaseNotes = files;
+}
+
+const appTitle = app.charAt(0).toUpperCase() + app.slice(1);
+---
+
+<Layout
+    title={`${appTitle} Release Notes`}
+    breadcrumbs={[
+        { label: "Apps", href: "/apps" },
+        { label: appTitle, href: `/apps/${app}` },
+        { label: "Release Notes" },
+    ]}
+>
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold mb-4">{appTitle} Release Notes</h1>
+            <p class="text-gray-600 dark:text-gray-400">
+                View the complete changelog for {appTitle}, following the
+                <a
+                    href="https://keepachangelog.com/en/1.1.0/"
+                    class="text-blue-500 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Keep a Changelog
+                </a> format.
+            </p>
+        </div>
+
+        {
+            releaseNotes.length > 0 ? (
+                <div class="space-y-6">
+                    {releaseNotes.map((note) => (
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                            <a href={`/apps/${app}/release-notes/${note.filename}`} class="block">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">
+                                        {note.title}
+                                    </h2>
+                                </div>
+                                {note.date && (
+                                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                                        Released on{" "}
+                                        {new Date(note.date).toLocaleDateString("en-US", {
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "numeric",
+                                        })}
+                                    </p>
+                                )}
+                            </a>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-6">
+                    <p class="text-yellow-800 dark:text-yellow-200">
+                        No release notes available for {appTitle} yet.
+                    </p>
+                </div>
+            )
+        }
+    </main>
+</Layout>
