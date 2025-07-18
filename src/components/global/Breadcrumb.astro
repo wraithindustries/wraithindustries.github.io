@@ -1,216 +1,215 @@
 ---
 export interface BreadcrumbItem {
-    label: string;
-    href?: string;
-    isDropdown?: boolean;
-    versions?: { label: string; href: string }[];
-    currentVersion?: string;
+  label: string;
+  href?: string;
+  isDropdown?: boolean;
+  versions?: { label: string; href: string }[];
+  currentVersion?: string;
 }
 
 export interface Props {
-    currentPath?: string;
-    customCrumbs?: BreadcrumbItem[];
+  currentPath?: string;
+  customCrumbs?: BreadcrumbItem[];
 }
 
 const { currentPath, customCrumbs } = Astro.props;
 
 // Function to generate breadcrumbs from path
 function generateBreadcrumbs(path: string | undefined, custom?: BreadcrumbItem[]) {
-    if (custom && custom.length > 0) {
-        return custom;
-    }
+  if (custom && custom.length > 0) {
+    return custom;
+  }
 
-    if (!path) return [];
+  if (!path) return [];
 
-    const segments = path.split("/").filter(Boolean);
-    const crumbs: BreadcrumbItem[] = [];
-    let currentHref = "";
+  const segments = path.split("/").filter(Boolean);
+  const crumbs: BreadcrumbItem[] = [];
+  let currentHref = "";
 
-    for (let i = 0; i < segments.length; i++) {
-        currentHref += "/" + segments[i];
-        const label = segments[i].replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+  for (let i = 0; i < segments.length; i++) {
+    currentHref += "/" + segments[i];
+    const label = segments[i].replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 
-        crumbs.push({
-            label,
-            href: currentHref,
-        });
-    }
+    crumbs.push({
+      label,
+      href: currentHref,
+    });
+  }
 
-    return crumbs;
+  return crumbs;
 }
 
 const breadcrumbs = generateBreadcrumbs(currentPath, customCrumbs);
 ---
 
 <nav class="flex" aria-label="Breadcrumb">
-    <ol role="list" class="flex items-center space-x-4">
-        <li>
-            <div>
-                <a href="/" class="text-gray-400 hover:text-gray-500">
-                    <svg
-                        class="h-5 w-5 flex-shrink-0"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
+  <ol role="list" class="flex items-center space-x-4">
+    <li>
+      <div>
+        <a
+          href="/"
+          class="text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 transition-colors duration-200"
+        >
+          <svg
+            class="h-5 w-5 flex-shrink-0"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span class="sr-only">Home</span>
+        </a>
+      </div>
+    </li>
+    {
+      breadcrumbs.map((crumb, index) => (
+        <li class="relative">
+          <div class="flex items-center">
+            <svg
+              class="h-5 w-5 flex-shrink-0 text-gray-300 dark:text-gray-600 transition-colors duration-200"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            {crumb.isDropdown && crumb.versions ? (
+              <div class="version-dropdown ml-4">
+                <button
+                  class="dropdown-trigger text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 flex items-center gap-1 transition-colors duration-200"
+                  aria-label="Select version"
+                >
+                  {crumb.label.includes("(latest)") ? (
+                    <>
+                      {crumb.label.replace(" (latest)", "")}
+                      <span class="italic text-gray-400 dark:text-gray-500 ml-1">(latest)</span>
+                    </>
+                  ) : (
+                    crumb.label
+                  )}
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+                <div class="dropdown-menu absolute top-full left-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible transition-all duration-200 z-50">
+                  {crumb.versions.map((version, versionIndex) => (
+                    <a
+                      href={version.href}
+                      class={`block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
+                        version.label === crumb.currentVersion
+                          ? "text-blue-500 dark:text-blue-400 font-medium"
+                          : "text-gray-700 dark:text-gray-300"
+                      } ${versionIndex === 0 ? "rounded-t-lg" : ""} ${
+                        versionIndex === crumb.versions!.length - 1 ? "rounded-b-lg" : ""
+                      }`}
                     >
-                        <path
-                            fill-rule="evenodd"
-                            d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="sr-only">Home</span>
-                </a>
-            </div>
+                      {version.label.includes("(latest)") ? (
+                        <>
+                          {version.label.replace(" (latest)", "")}
+                          <span class="italic text-gray-400 dark:text-gray-500 ml-1">(latest)</span>
+                        </>
+                      ) : (
+                        version.label
+                      )}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : index === breadcrumbs.length - 1 ? (
+              <span
+                class="ml-4 text-sm font-medium text-gray-500 dark:text-gray-400"
+                aria-current="page"
+              >
+                {crumb.label}
+              </span>
+            ) : (
+              <a
+                href={crumb.href}
+                class="ml-4 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-200"
+              >
+                {crumb.label}
+              </a>
+            )}
+          </div>
         </li>
-        {
-            breadcrumbs.map((crumb, index) => (
-                <li class="relative">
-                    <div class="flex items-center">
-                        <svg
-                            class="h-5 w-5 flex-shrink-0 text-gray-300"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                            aria-hidden="true"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
-                        {crumb.isDropdown && crumb.versions ? (
-                            <div class="version-dropdown ml-4">
-                                <button
-                                    class="dropdown-trigger text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center gap-1"
-                                    aria-label="Select version"
-                                >
-                                    {crumb.label.includes("(latest)") ? (
-                                        <>
-                                            {crumb.label.replace(" (latest)", "")}
-                                            <span class="italic text-gray-400 ml-1">(latest)</span>
-                                        </>
-                                    ) : (
-                                        crumb.label
-                                    )}
-                                    <svg
-                                        class="w-4 h-4"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M19 9l-7 7-7-7"
-                                        />
-                                    </svg>
-                                </button>
-                                <div class="dropdown-menu absolute top-full left-0 mt-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible transition-all duration-200 z-50">
-                                    {crumb.versions.map((version, versionIndex) => (
-                                        <a
-                                            href={version.href}
-                                            class={`block px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
-                                                version.label === crumb.currentVersion
-                                                    ? "text-blue-500 font-medium"
-                                                    : "text-gray-700"
-                                            } ${versionIndex === 0 ? "rounded-t-lg" : ""} ${
-                                                versionIndex === crumb.versions!.length - 1
-                                                    ? "rounded-b-lg"
-                                                    : ""
-                                            }`}
-                                        >
-                                            {version.label.includes("(latest)") ? (
-                                                <>
-                                                    {version.label.replace(" (latest)", "")}
-                                                    <span class="italic text-gray-400 ml-1">
-                                                        (latest)
-                                                    </span>
-                                                </>
-                                            ) : (
-                                                version.label
-                                            )}
-                                        </a>
-                                    ))}
-                                </div>
-                            </div>
-                        ) : index === breadcrumbs.length - 1 ? (
-                            <span
-                                class="ml-4 text-sm font-medium text-gray-500"
-                                aria-current="page"
-                            >
-                                {crumb.label}
-                            </span>
-                        ) : (
-                            <a
-                                href={crumb.href}
-                                class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
-                            >
-                                {crumb.label}
-                            </a>
-                        )}
-                    </div>
-                </li>
-            ))
-        }
-    </ol>
+      ))
+    }
+  </ol>
 </nav>
 
 <style>
-    .version-dropdown {
-        position: relative;
-    }
+  .version-dropdown {
+    position: relative;
+  }
 
-    .dropdown-trigger {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-    }
+  .dropdown-trigger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
 
-    .version-dropdown:hover .dropdown-menu,
-    .version-dropdown:focus-within .dropdown-menu {
-        opacity: 1;
-        visibility: visible;
-    }
+  .version-dropdown:hover .dropdown-menu,
+  .version-dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+  }
 
+  .dropdown-menu {
+    min-width: 120px;
+  }
+
+  @media (max-width: 640px) {
     .dropdown-menu {
-        min-width: 120px;
+      left: auto;
+      right: 0;
     }
-
-    @media (max-width: 640px) {
-        .dropdown-menu {
-            left: auto;
-            right: 0;
-        }
-    }
+  }
 </style>
 
 <script>
-    // Close dropdown when clicking outside
-    document.addEventListener("click", (e) => {
-        const dropdowns = document.querySelectorAll(".version-dropdown");
-        dropdowns.forEach((dropdown) => {
-            if (!dropdown.contains(e.target as Node)) {
-                const menu = dropdown.querySelector(".dropdown-menu");
-                if (menu) {
-                    menu.classList.add("opacity-0", "invisible");
-                }
-            }
-        });
+  // Close dropdown when clicking outside
+  document.addEventListener("click", (e) => {
+    const dropdowns = document.querySelectorAll(".version-dropdown");
+    dropdowns.forEach((dropdown) => {
+      if (!dropdown.contains(e.target as Node)) {
+        const menu = dropdown.querySelector(".dropdown-menu");
+        if (menu) {
+          menu.classList.add("opacity-0", "invisible");
+        }
+      }
     });
+  });
 
-    // Toggle dropdown on click
-    document.querySelectorAll(".dropdown-trigger").forEach((trigger) => {
-        trigger.addEventListener("click", (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const menu = trigger.nextElementSibling;
-            if (menu) {
-                menu.classList.toggle("opacity-0");
-                menu.classList.toggle("invisible");
-            }
-        });
+  // Toggle dropdown on click
+  document.querySelectorAll(".dropdown-trigger").forEach((trigger) => {
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const menu = trigger.nextElementSibling;
+      if (menu) {
+        menu.classList.toggle("opacity-0");
+        menu.classList.toggle("invisible");
+      }
     });
+  });
 </script>

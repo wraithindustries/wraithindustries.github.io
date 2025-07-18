@@ -6,106 +6,111 @@ import dossierLogo from "../../assets/images/dossier-logo.webp";
 ---
 
 <BaseLayout>
-    <div class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24">
-        <div class="text-center max-w-4xl mx-auto">
-            <h1 class="text-4xl tracking-tight font-semibold text-black md:text-5xl font-display">
-                Our Apps
-            </h1>
-            <p class="text-gray-500 lg:text-xl max-w-2xl mt-8 mx-auto text-base">
-                Discover our suite of innovative applications designed to enhance your digital
-                experience.
-            </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8 mt-16 max-w-4xl mx-auto">
-            <!-- Glance Card -->
-            <a
-                href="/apps/glance"
-                class="group relative overflow-hidden rounded-lg border border-gray-200 bg-white transition-all hover:shadow-lg hover:border-gray-300"
-            >
-                <div class="p-8">
-                    <div class="mb-4">
-                        <Image
-                            src={glanceScreens}
-                            alt="Glance app showcasing seamless personal information sharing"
-                            class="w-full h-48 object-cover rounded-md"
-                            loading="eager"
-                            width={400}
-                            densities={[1.5, 2]}
-                        />
-                    </div>
-                    <h2
-                        class="text-2xl font-semibold text-black mb-3 group-hover:text-accent-400 transition-colors"
-                    >
-                        Glance
-                    </h2>
-                    <p class="text-gray-600 text-base">
-                        Say goodbye to awkward introductions and repeating yourself. Glance
-                        transforms how you share personal details, making every exchange seamless
-                        and stress-free.
-                    </p>
-                    <div class="mt-4 text-accent-400 font-medium flex items-center gap-2">
-                        Learn more
-                        <svg
-                            class="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Dossier Card -->
-            <a
-                href="https://getdossier.app/"
-                target="_blank"
-                class="group relative overflow-hidden rounded-lg border border-gray-200 bg-white transition-all hover:shadow-lg hover:border-gray-300"
-            >
-                <div class="p-8">
-                    <div class="mb-4 bg-gray-100 rounded-md h-48 flex items-center justify-center">
-                        <Image
-                            src={dossierLogo}
-                            alt="Dossier logo - personal knowledge management system"
-                            class="h-24 w-auto"
-                            loading="lazy"
-                            height={96}
-                            width={300}
-                        />
-                    </div>
-                    <h2
-                        class="text-2xl font-semibold text-black mb-3 group-hover:text-accent-400 transition-colors"
-                    >
-                        Dossier
-                    </h2>
-                    <p class="text-gray-600 text-base">
-                        Your personal knowledge management system. Organize, track, and retrieve
-                        information effortlessly with our intelligent document management platform.
-                    </p>
-                    <div class="mt-4 text-accent-400 font-medium flex items-center gap-2">
-                        Visit website
-                        <svg
-                            class="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                            ></path>
-                        </svg>
-                    </div>
-                </div>
-            </a>
-        </div>
+  <div class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24">
+    <div class="text-center max-w-4xl mx-auto">
+      <h1
+        class="text-4xl tracking-tight font-semibold text-black dark:text-white md:text-5xl font-display transition-colors duration-200"
+      >
+        Our Apps
+      </h1>
+      <p
+        class="text-gray-500 dark:text-gray-400 lg:text-xl max-w-2xl mt-8 mx-auto text-base transition-colors duration-200"
+      >
+        Discover our suite of innovative applications designed to enhance your digital experience.
+      </p>
     </div>
+
+    <div class="grid md:grid-cols-2 gap-8 mt-16 max-w-4xl mx-auto">
+      <!-- Glance Card -->
+      <a
+        href="/apps/glance"
+        class="group relative overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 transition-all hover:shadow-lg hover:border-gray-300 dark:hover:border-gray-600"
+      >
+        <div class="p-8">
+          <div class="mb-4">
+            <Image
+              src={glanceScreens}
+              alt="Glance app showcasing seamless personal information sharing"
+              class="w-full h-48 object-cover rounded-md"
+              loading="eager"
+              width={400}
+              densities={[1.5, 2]}
+            />
+          </div>
+          <h2
+            class="text-2xl font-semibold text-black dark:text-white mb-3 group-hover:text-accent-400 dark:group-hover:text-accent-400 transition-colors"
+          >
+            Glance
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 text-base transition-colors duration-200">
+            Say goodbye to awkward introductions and repeating yourself. Glance transforms how you
+            share personal details, making every exchange seamless and stress-free.
+          </p>
+          <div
+            class="mt-4 text-accent-400 dark:text-accent-400 font-medium flex items-center gap-2"
+          >
+            Learn more
+            <svg
+              class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Dossier Card -->
+      <a
+        href="https://getdossier.app/"
+        target="_blank"
+        class="group relative overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 transition-all hover:shadow-lg hover:border-gray-300 dark:hover:border-gray-600"
+      >
+        <div class="p-8">
+          <div
+            class="mb-4 bg-gray-100 dark:bg-gray-700 rounded-md h-48 flex items-center justify-center transition-colors duration-200"
+          >
+            <Image
+              src={dossierLogo}
+              alt="Dossier logo - personal knowledge management system"
+              class="h-24 w-auto"
+              loading="lazy"
+              height={96}
+              width={300}
+            />
+          </div>
+          <h2
+            class="text-2xl font-semibold text-black dark:text-white mb-3 group-hover:text-accent-400 dark:group-hover:text-accent-400 transition-colors"
+          >
+            Dossier
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 text-base transition-colors duration-200">
+            Your personal knowledge management system. Organize, track, and retrieve information
+            effortlessly with our intelligent document management platform.
+          </p>
+          <div
+            class="mt-4 text-accent-400 dark:text-accent-400 font-medium flex items-center gap-2"
+          >
+            Visit website
+            <svg
+              class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
 </BaseLayout>
